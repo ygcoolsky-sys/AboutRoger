@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于Roger：镜像、回响与认知图谱</title>
+    <title>Roger：镜像、回响与认知图谱</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Serif+SC:wght@700&display=swap');
@@ -16,10 +16,10 @@
         .choice-btn.selected { border-color: #6366f1; background: #eef2ff; color: #4f46e5; box-shadow: 0 0 0 1px #6366f1; }
         .scale-btn { transition: all 0.15s; border: 1px solid #e2e8f0; border-radius: 0.5rem; }
         .scale-btn.selected { background: #6366f1; color: white; border-color: #6366f1; }
-        textarea:focus { border-color: #6366f1; }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
+
     <div class="w-full max-w-xl bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 relative overflow-hidden border border-slate-100">
         <div class="absolute top-0 left-0 w-full h-1.5 bg-slate-50">
             <div id="progress" class="h-full bg-indigo-600 transition-all duration-700" style="width: 0%"></div>
@@ -29,27 +29,34 @@
             <div id="step-container">
                 <div class="step fade-in" id="step-0">
                     <h1 class="text-3xl font-extrabold text-slate-900 mb-6 tracking-tight serif italic text-indigo-900">
-                        关于Roger：镜像、回响与认知图谱
+                        Roger：镜像、回响与认知图谱
                     </h1>
                     <div class="space-y-4 text-slate-500 mb-10 leading-relaxed text-lg">
-                        <p>一直觉得，‘他择’（来自他人的反馈）是自省最锋利的磨刀石。</p>
+                        <p>一直觉得，‘他择’是自省最锋利的磨刀石。</p>
                         <p>这份清单里的 20 个碎片，既藏着我对**精神底色**的感性好奇，也包含了我对**行为边界**的理性审计。</p>
-                        <p>我想通过你的眼睛，去捕捉那些我视而不见的‘自我盲区’。请跳过礼貌的客套，我更渴望听到你最直觉、最真实的回响。</p>
+                        <p>我想通过你的眼睛，去捕捉那些我视而不见的‘自我盲区’。请跳过礼貌的客套，我更渴望听到你真实的回响。</p>
                         <p class="bg-indigo-50 border-l-4 border-indigo-400 p-4 text-indigo-800 rounded-r-xl text-base italic">
-                            💡 提示：遇到开放题，请分享你脑海中跳出的第一个画面，那通常是最准的。
+                            💡 注意：此页面不联网，完成后请点击“生成摘要”并将结果复制发回给我。
                         </p>
                     </div>
                     <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">首先，怎么称呼你？</label>
                     <input type="text" name="name" id="user-name" required class="w-full border-b-2 border-slate-100 focus:border-indigo-600 outline-none py-3 text-xl transition bg-transparent" placeholder="昵称或姓名">
-                    <button type="button" onclick="next(0)" class="mt-12 w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition">开启实验</button>
+                    <button type="button" onclick="next(0)" class="mt-12 w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg shadow-xl hover:bg-indigo-700 transition">开启实验</button>
                 </div>
             </div>
 
             <div id="step-final" class="step hidden fade-in text-center py-10">
                 <div class="text-6xl mb-6">👁️</div>
                 <h2 class="text-2xl font-bold text-slate-900 mb-4 serif">探索完成</h2>
-                <p class="text-slate-500 mb-10 text-lg">感谢你作为观察者，帮我补全了自我地图的盲区。你的每一份反馈对我来说都弥足珍贵。</p>
-                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-black transition shadow-2xl tracking-widest">确认并发送</button>
+                <p class="text-slate-500 mb-8 leading-relaxed">感谢你的坦诚。为避开网络连接限制，请点击下方按钮生成摘要，并**复制发回给 Roger**。</p>
+                
+                <button type="button" onclick="generateSummary()" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition shadow-lg">生成并复制摘要</button>
+
+                <div id="summary-container" class="hidden mt-8 text-left">
+                    <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">摘要内容（已自动复制）：</label>
+                    <textarea id="summary-text" readonly class="w-full h-48 bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 text-sm text-slate-600 outline-none"></textarea>
+                    <p class="mt-4 text-indigo-600 font-bold text-sm text-center">👆 请直接前往微信粘贴发送</p>
+                </div>
             </div>
         </form>
     </div>
@@ -61,13 +68,13 @@
             { id: 3, type: "text", q: "回想初见，你对我最深刻的 3 个直觉印象是什么？" },
             { id: 4, type: "checkbox", q: "选出最像我的“光面”词 (最多4项)：", options: ["可靠", "干脆", "聪明", "冷静", "有主见", "行动快", "目标感强", "讲原则", "讲效率", "讲逻辑", "好奇", "学习快", "进取", "敢担当", "坦诚", "讲信用", "会组织", "会推动", "会连接资源"], limit: 4 },
             { id: 5, type: "checkbox", q: "选出最像我的“暗面”风险 (最多3项)：", options: ["压迫感", "强势", "距离感", "情绪不外露", "节奏太快", "信息密度高", "耐心不足", "容易急", "容易打断", "要求高", "挑剔", "固执", "容易质疑", "想法多", "注意力分散", "谨慎"], limit: 3 },
-            { id: 6, type: "text", q: "如果你要自己补一个词形容我，会是什么？(最多10字)" },
-            { id: 7, type: "scale", q: "【维度测评】在我看来，我是外向、善于社交、容易跟人熟起来的。" },
-            { id: 8, type: "scale", q: "【维度测评】在我看来，我对人友好、愿意照顾他人感受。" },
-            { id: 9, type: "scale", q: "【维度测评】在我看来，我自律、做事有条理、能持续推进。" },
-            { id: 10, type: "scale", q: "【维度测评】在我看来，我容易受压力影响导致焦虑或紧张。" },
-            { id: 11, type: "scale", q: "【维度测评】在我看来，我愿意尝试新东西，想法开放，好奇心强。" },
-            { id: 12, type: "radio", q: "你觉得我的存在，更像是一团“温暖的火”，还是一个“深邃的湖”？", options: ["温暖的火 (明亮/有爆发力)", "深邃 the 湖 (沉静/有深度)"] },
+            { id: 6, type: "text", q: "如果你要自己补一个词形容我，会是什么？" },
+            { id: 7, type: "scale", q: "【测评】在我看来，我是外向、善于社交、容易跟人熟起来的。" },
+            { id: 8, type: "scale", q: "【测评】在我看来，我对人友好、愿意照顾他人感受。" },
+            { id: 9, type: "scale", q: "【测评】在我看来，我自律、做事有条理、能持续推进。" },
+            { id: 10, type: "scale", q: "【测评】在我看来，我容易受压力影响导致焦虑或紧张。" },
+            { id: 11, type: "scale", q: "【测评】在我看来，我愿意尝试新东西，想法开放，好奇心强。" },
+            { id: 12, type: "radio", q: "你觉得我的存在，更像是一团“温暖的火”，还是一个“深邃的湖”？", options: ["温暖的火 (明亮/有爆发力)", "深邃的湖 (沉静/有深度)"] },
             { id: 13, type: "radio", q: "当我压力大时，你观察到我更倾向于：", options: ["更强势", "更冷淡", "更急躁", "更沉默", "更亢奋", "看不出来"] },
             { id: 14, type: "radio", q: "如果我是一本还没写完的书，你觉得接下来的章节应该是：", options: ["破浪前行 (变革与成就)", "大隐于市 (沉淀与哲思)"] },
             { id: 15, type: "radio", q: "我最容易踩到的“边界”是什么？", options: ["时间安排与节奏", "情绪与面子", "个人空间与隐私", "决策权威", "不确定"] },
@@ -81,9 +88,6 @@
         let current = 0;
         const totalSteps = 21;
         const container = document.getElementById('step-container');
-        
-        // 【重要】替换为你的 URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwrDxxwqJ-EGQio9sfxAeIh97hxLjIo65FXRlgofR23310zjar-PLkpAuaAgGuV2Jx4UQ/exec';
 
         function renderQuestions() {
             questions.forEach((item, index) => {
@@ -116,13 +120,25 @@
         }
         function prev(id) { document.getElementById(`step-${id}`).classList.add('hidden'); current--; document.getElementById(`step-${current}`).classList.remove('hidden'); document.getElementById('progress').style.width = (current / totalSteps * 100) + '%'; }
 
-        document.getElementById('survey-form').onsubmit = async (e) => {
-            e.preventDefault(); const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerText = "数据同步中...";
-            try {
-                await fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' });
-                alert('提交成功！你的反馈对我非常重要。'); btn.innerText = "已完成";
-            } catch (err) { alert('提交由于网络原因延迟，请稍后确认表格：' + err.message); btn.disabled = false; }
-        };
+        function generateSummary() {
+            const name = document.getElementById('user-name').value;
+            let summary = `Roger 镜像图谱反馈\n来自：${name}\n------------------\n`;
+            
+            questions.forEach((q, index) => {
+                const stepId = index + 1;
+                const field = document.querySelector(`input[name="q${stepId}"], textarea[name="q${stepId}"]`);
+                summary += `${stepId}. ${q.q}\n答：${field ? (field.value || '未填') : '未填'}\n\n`;
+            });
+
+            const textarea = document.getElementById('summary-text');
+            textarea.value = summary;
+            document.getElementById('summary-container').classList.remove('hidden');
+
+            // 自动复制
+            textarea.select();
+            document.execCommand('copy');
+            alert('摘要已生成并复制到剪贴板！请前往微信粘贴发送给 Roger。');
+        }
     </script>
 </body>
 </html>
