@@ -3,67 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一份深度认知请求</title>
+    <title>Roger 的个人认知调查</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #fdfdfd; }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none; }
+        .choice-btn { transition: all 0.2s; border: 2px solid #f3f4f6; }
+        .choice-btn.selected { border-color: #4f46e5; background: #eef2ff; color: #4f46e5; }
     </style>
 </head>
-<body class="bg-slate-50 flex items-center justify-center min-h-screen p-6">
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-slate-100">
-            <div id="progress" class="h-full bg-indigo-500 transition-all duration-500" style="width: 0%"></div>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-xl bg-white rounded-[2rem] shadow-2xl p-8 md:p-12 relative overflow-hidden border border-gray-50">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-100">
+            <div id="progress" class="h-full bg-indigo-600 transition-all duration-500" style="width: 0%"></div>
         </div>
+
         <form id="survey-form">
             <div id="step-container">
-                <div class="step fade-in" id="step-1">
-                    <h1 class="text-2xl font-bold text-slate-800 mb-2">嘿！我想听听你的真话</h1>
-                    <p class="text-slate-500 mb-8">这是一次关于我的“他择”实验。首先，怎么称呼你？</p>
-                    <input type="text" name="name" required class="w-full border-b-2 border-slate-100 focus:border-indigo-500 outline-none py-3 text-lg transition" placeholder="你的名字">
-                    <button type="button" onclick="next(1)" class="mt-10 w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold">开始填写</button>
+                <div class="step fade-in" id="step-0">
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-6 tracking-tight">嘿，我想听听你的真话</h1>
+                    <p class="text-gray-500 mb-8 leading-relaxed text-lg">
+                        这是一次关于我的“个人尽职调查”。请避开礼貌的客套，用你最真实、甚至最犀利的视角帮我照照镜子。<br><br>
+                        <span class="text-indigo-600 font-semibold">💡 提示：遇到例子题，请尽量写出具体的情境。</span>
+                    </p>
+                    <label class="block text-sm font-bold text-gray-400 mb-2 uppercase">首先，怎么称呼你？</label>
+                    <input type="text" name="name" required class="w-full border-b-2 border-gray-100 focus:border-indigo-600 outline-none py-3 text-xl transition bg-transparent" placeholder="昵称或姓名">
+                    <button type="button" onclick="next(0)" class="mt-10 w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-100">开始实验</button>
                 </div>
             </div>
+
             <div id="step-final" class="step hidden fade-in text-center">
-                <div class="text-5xl mb-6">✨</div>
-                <h2 class="text-xl font-bold text-slate-800 mb-4">反馈已收到</h2>
-                <p class="text-slate-500 mb-8">感谢你陪我完成这次探索。点击下方按钮完成最后提交。</p>
-                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold">确认发送</button>
+                <div class="text-6xl mb-6">🥂</div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">全部填完啦！</h2>
+                <p class="text-gray-500 mb-10">你的反馈对我非常重要，感谢这份坦诚。点击下方按钮，将数据传送给我。</p>
+                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg">确认提交</button>
             </div>
         </form>
     </div>
+
     <script>
-        const questions = ["回想初次相识，你对我最深刻的 3 个直觉印象是什么？","在你认识的所有人里，你觉得我身上哪种特质是最罕见、最难以取代的？","你觉得我在谈论什么话题时，眼神里最有“光”？","你觉得我的存在，更像是一团“温暖的火”，还是一个“深邃的湖”？","如果我突然去创业，你会建议我做“掌舵者”还是“压舱石”？","当我陷入低谷时，你觉得我最需要的支持方式是什么？","你觉得我在社交场合中展示出的“距离感”通常是因为什么？","如果我是一本还没写完的书，你觉得下章是“破浪前行”还是“大隐于市”？","在你眼中，我更倾向于“直觉驱动”还是“逻辑至上”？","有没有哪种才华，是你觉得我拥有但还没被大家看到的？","如果要给我提一个能让我变得更好的“真诚差评”，你会说什么？","在什么样的情况下，你会毫不犹豫地把一件大事交给我？","如果必须用一个词来定义我的“精神底色”，你会选哪个词？","最后，有没有一句话是你想送给现在或未来的我的？"];
-        let current = 1;
+        // 定义题目类型：text (长文本), score (1-10), radio (单选), checkbox (多选)
+        const questions = [
+            { id: 1, type: "radio", q: "你和我认识多久了？", options: ["<1年", "1–3年", "3–5年", "5年以上"] },
+            { id: 2, type: "score", q: "你觉得我“说到做到、能交付”的程度是多少？" },
+            { id: 3, type: "score", q: "你觉得我“看问题抓重点、不被表象带跑”的程度是多少？" },
+            { id: 4, type: "score", q: "你觉得我“跟我合作更轻松/更有效”的程度是多少？" },
+            { id: 5, type: "radio", q: "你更常在什么场景里接触我？", options: ["工作协作", "商务合作", "私下朋友", "学习交流", "线上为主", "其他"] },
+            { id: 6, type: "radio", q: "形容我在别人眼里最稳定的气质：", options: ["冷静", "进取", "强势", "可靠", "有趣", "难以捉摸", "温和", "其他"] },
+            { id: 7, type: "checkbox", q: "你认为我最突出的优势是什么？(最多3项)", options: ["判断力", "学习速度", "执行推进", "表达说服", "资源连接", "抗压能力", "审美品味", "同理心", "自律", "创造力"], limit: 3 },
+            { id: 8, type: "checkbox", q: "你认为我最明显的短板/风险点是什么？(最多2项)", options: ["容易急", "太强势", "情绪表达少", "信息密度过高", "分心太多", "控制欲", "不够耐心", "容易怀疑他人能力", "过度理性显得冷"], limit: 2 },
+            { id: 9, type: "text", q: "印象最深的一次，我做对了什么？(情境→行动→结果)" },
+            { id: 10, type: "text", q: "印象最深的一次，我做错了什么/让你感到不适的是什么？" },
+            { id: 11, type: "text", q: "如果让我“变得更难相处”，最典型的一种表现会是什么？" },
+            { id: 12, type: "text", q: "如果让我“更值得长期合作”，一个关键改变是什么？" },
+            { id: 13, type: "radio", q: "当我和你观点不一致时，我更常见的表现是：", options: ["压过去", "讲逻辑讲到你累", "先听再反击", "暂时冷处理", "让步但心里不服", "说不准"] },
+            { id: 14, type: "radio", q: "当我压力很大时，你观察到我更可能：", options: ["更强势", "更冷淡", "更急躁", "更沉默", "更亢奋/激进", "看不出来"] },
+            { id: 15, type: "score", q: "你愿意把重要的事交给我一起做的程度是多少？" },
+            { id: 16, type: "text", q: "我做过的哪件“小事”，让你觉得我值得信任？" },
+            { id: 17, type: "text", q: "我最容易忽略的一条“边界”是什么？(如时间、情绪、尊重感等)" },
+            { id: 18, type: "text", q: "如果你只能给我一个“必须坚持的原则”，你会给什么？" },
+            { id: 19, type: "text", q: "一句话建议：我应该继续做什么？" },
+            { id: 20, type: "text", q: "一句话建议：我应该少做/停止做什么？" }
+        ];
+
+        let current = 0;
         const container = document.getElementById('step-container');
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyau7lCR1wdWWSs06g6bZFSrweukSchqGs4G2q3Wp5YFMAhSSxEK-KCrGGzHYlngc0X/exec';
-        questions.forEach((q, i) => {
-            const stepId = i + 2;
-            const div = document.createElement('div');
-            div.id = `step-${stepId}`;
-            div.className = "step hidden fade-in";
-            div.innerHTML = `<label class="block text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">Question ${stepId}/15</label><h2 class="text-xl font-bold text-slate-800 mb-6">${q}</h2><textarea name="q${stepId}" rows="4" class="w-full bg-slate-50 border-none rounded-2xl p-4 focus:ring-2 focus:ring-indigo-500 outline-none transition" placeholder="输入你的回答..."></textarea><button type="button" onclick="next(${stepId})" class="mt-8 w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold">下一题</button>`;
-            container.appendChild(div);
-        });
-        function next(stepId) {
-            const currentEl = document.getElementById(`step-${stepId}`);
-            const input = currentEl.querySelector('input, textarea');
-            if (input && !input.value.trim()) { alert("留点笔墨吧，这对我很重要。"); return; }
-            currentEl.classList.add('hidden');
-            current++;
-            const nextEl = document.getElementById(`step-${current}`) || document.getElementById('step-final');
-            nextEl.classList.remove('hidden');
-            document.getElementById('progress').style.width = (current / 16 * 100) + '%';
+        const scriptURL = '你的_GOOGLE_SCRIPT_URL';
+
+        function renderQuestions() {
+            questions.forEach((item, index) => {
+                const stepId = index + 1;
+                const div = document.createElement('div');
+                div.id = `step-${stepId}`;
+                div.className = "step hidden fade-in";
+                
+                let inputHTML = '';
+                if(item.type === 'text') {
+                    inputHTML = `<textarea name="q${stepId}" rows="4" class="w-full bg-gray-50 rounded-2xl p-4 outline-none focus:ring-2 focus:ring-indigo-500 transition" placeholder="请详细描述..."></textarea>`;
+                } else if(item.type === 'score') {
+                    inputHTML = `<div class="grid grid-cols-5 gap-2">` + [1,2,3,4,5,6,7,8,9,10].map(n => `<button type="button" onclick="selectValue('q${stepId}', ${n}, this)" class="choice-btn py-3 rounded-xl font-bold text-gray-600">${n}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
+                } else if(item.type === 'radio' || item.type === 'checkbox') {
+                    inputHTML = `<div class="flex flex-wrap gap-2">` + item.options.map(opt => `<button type="button" onclick="selectOption('q${stepId}', '${opt}', this, '${item.type}', ${item.limit || 1})" class="choice-btn px-4 py-2 rounded-full text-sm font-medium text-gray-600">${opt}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
+                }
+
+                div.innerHTML = `
+                    <label class="block text-xs font-bold text-indigo-400 uppercase mb-2">Quest ${stepId} / 20</label>
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">${item.q}</h2>
+                    ${inputHTML}
+                    <div class="flex gap-4 mt-10">
+                        <button type="button" onclick="prev(${stepId})" class="flex-1 py-4 text-gray-400 font-bold">上一步</button>
+                        <button type="button" onclick="next(${stepId})" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-bold">下一题</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
         }
-        document.getElementById('survey-form').addEventListener('submit', e => {
+
+        renderQuestions();
+
+        function selectValue(name, val, el) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+            document.querySelector(`input[name="${name}"]`).value = val;
+        }
+
+        function selectOption(name, val, el, type, limit) {
+            const input = document.querySelector(`input[name="${name}"]`);
+            if(type === 'radio') {
+                el.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+                el.classList.add('selected');
+                input.value = val;
+            } else {
+                el.classList.toggle('selected');
+                const selected = Array.from(el.parentElement.querySelectorAll('.selected')).map(b => b.innerText);
+                if(selected.length > limit) {
+                    el.classList.remove('selected');
+                    alert(`最多只能选 ${limit} 项哦`);
+                    return;
+                }
+                input.value = selected.join(', ');
+            }
+        }
+
+        function next(id) {
+            const currentStep = document.getElementById(`step-${id}`);
+            // 简单校验
+            if(id === 0 && !document.querySelector('input[name="name"]').value) { alert("怎么称呼你？"); return; }
+            
+            currentStep.classList.add('hidden');
+            current++;
+            const nextStep = document.getElementById(`step-${current}`) || document.getElementById('step-final');
+            nextStep.classList.remove('hidden');
+            document.getElementById('progress').style.width = (current / 21 * 100) + '%';
+        }
+
+        function prev(id) {
+            document.getElementById(`step-${id}`).classList.add('hidden');
+            current--;
+            document.getElementById(`step-${current}`).classList.remove('hidden');
+            document.getElementById('progress').style.width = (current / 21 * 100) + '%';
+        }
+
+        document.getElementById('survey-form').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
-            btn.disabled = true; btn.innerText = "提交中...";
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target)})
-            .then(res => { alert('提交成功！谢谢你！'); btn.innerText = "已完成"; })
-            .catch(err => alert('提交中，请稍后确认：' + err.message));
-        });
+            btn.disabled = true; btn.innerText = "正在传送数据...";
+            
+            try {
+                await fetch(scriptURL, { method: 'POST', body: new FormData(e.target) });
+                alert('提交成功！你的反馈对我非常珍贵。');
+                btn.innerText = "已完成";
+            } catch (err) {
+                alert('提交似乎有点问题，可以截图联系我：' + err.message);
+                btn.disabled = false;
+            }
+        };
     </script>
 </body>
 </html>
