@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roger 的认知映射图谱</title>
+    <title>关于Roger：镜像、回响与认知图谱</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Serif+SC:wght@700&display=swap');
@@ -16,26 +16,40 @@
         .choice-btn.selected { border-color: #6366f1; background: #eef2ff; color: #4f46e5; box-shadow: 0 0 0 1px #6366f1; }
         .scale-btn { transition: all 0.15s; border: 1px solid #e2e8f0; border-radius: 0.5rem; }
         .scale-btn.selected { background: #6366f1; color: white; border-color: #6366f1; }
+        textarea:focus { border-color: #6366f1; }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-xl bg-white rounded-[2rem] shadow-2xl p-8 md:p-12 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-slate-50"><div id="progress" class="h-full bg-indigo-500 transition-all duration-700" style="width: 0%"></div></div>
+    <div class="w-full max-w-xl bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 relative overflow-hidden border border-slate-100">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-slate-50">
+            <div id="progress" class="h-full bg-indigo-600 transition-all duration-700" style="width: 0%"></div>
+        </div>
+
         <form id="survey-form">
             <div id="step-container">
                 <div class="step fade-in" id="step-0">
-                    <h1 class="text-3xl font-extrabold text-slate-900 mb-6 serif italic">Roger's Soul & Logic Map</h1>
-                    <p class="text-slate-500 mb-10 text-lg leading-relaxed">这是一次关于我的“他评”实验，结合了**精神原型**与**行为审计**。请给出你最直觉、真实的反馈。</p>
+                    <h1 class="text-3xl font-extrabold text-slate-900 mb-6 tracking-tight serif italic text-indigo-900">
+                        关于Roger：镜像、回响与认知图谱
+                    </h1>
+                    <div class="space-y-4 text-slate-500 mb-10 leading-relaxed text-lg">
+                        <p>一直觉得，‘他择’（来自他人的反馈）是自省最锋利的磨刀石。</p>
+                        <p>这份清单里的 20 个碎片，既藏着我对**精神底色**的感性好奇，也包含了我对**行为边界**的理性审计。</p>
+                        <p>我想通过你的眼睛，去捕捉那些我视而不见的‘自我盲区’。请跳过礼貌的客套，我更渴望听到你最直觉、最真实的回响。</p>
+                        <p class="bg-indigo-50 border-l-4 border-indigo-400 p-4 text-indigo-800 rounded-r-xl text-base italic">
+                            💡 提示：遇到开放题，请分享你脑海中跳出的第一个画面，那通常是最准的。
+                        </p>
+                    </div>
                     <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">首先，怎么称呼你？</label>
                     <input type="text" name="name" id="user-name" required class="w-full border-b-2 border-slate-100 focus:border-indigo-600 outline-none py-3 text-xl transition bg-transparent" placeholder="昵称或姓名">
-                    <button type="button" onclick="next(0)" class="mt-12 w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg shadow-xl hover:bg-indigo-700">开启实验</button>
+                    <button type="button" onclick="next(0)" class="mt-12 w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition">开启实验</button>
                 </div>
             </div>
+
             <div id="step-final" class="step hidden fade-in text-center py-10">
                 <div class="text-6xl mb-6">👁️</div>
                 <h2 class="text-2xl font-bold text-slate-900 mb-4 serif">探索完成</h2>
-                <p class="text-slate-500 mb-10">感谢你帮我补全了自我地图的盲区。</p>
-                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-black transition shadow-2xl tracking-widest">确认发送</button>
+                <p class="text-slate-500 mb-10 text-lg">感谢你作为观察者，帮我补全了自我地图的盲区。你的每一份反馈对我来说都弥足珍贵。</p>
+                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-black transition shadow-2xl tracking-widest">确认并发送</button>
             </div>
         </form>
     </div>
@@ -48,12 +62,12 @@
             { id: 4, type: "checkbox", q: "选出最像我的“光面”词 (最多4项)：", options: ["可靠", "干脆", "聪明", "冷静", "有主见", "行动快", "目标感强", "讲原则", "讲效率", "讲逻辑", "好奇", "学习快", "进取", "敢担当", "坦诚", "讲信用", "会组织", "会推动", "会连接资源"], limit: 4 },
             { id: 5, type: "checkbox", q: "选出最像我的“暗面”风险 (最多3项)：", options: ["压迫感", "强势", "距离感", "情绪不外露", "节奏太快", "信息密度高", "耐心不足", "容易急", "容易打断", "要求高", "挑剔", "固执", "容易质疑", "想法多", "注意力分散", "谨慎"], limit: 3 },
             { id: 6, type: "text", q: "如果你要自己补一个词形容我，会是什么？(最多10字)" },
-            { id: 7, type: "scale", q: "【Big5】在我看来，我是外向、善于社交、容易跟人熟起来的。" },
-            { id: 8, type: "scale", q: "【Big5】在我看来，我对人友好、愿意照顾他人感受。" },
-            { id: 9, type: "scale", q: "【Big5】在我看来，我自律、做事有条理、能持续推进。" },
-            { id: 10, type: "scale", q: "【Big5】在我看来，我容易受压力影响导致焦虑或紧张。" },
-            { id: 11, type: "scale", q: "【Big5】在我看来，我愿意尝试新东西，想法开放，好奇心强。" },
-            { id: 12, type: "radio", q: "你觉得我的存在，更像是一团“温暖的火”，还是一个“深邃的湖”？", options: ["温暖的火 (明亮/爆发力)", "深邃的湖 (沉静/有深度)"] },
+            { id: 7, type: "scale", q: "【维度测评】在我看来，我是外向、善于社交、容易跟人熟起来的。" },
+            { id: 8, type: "scale", q: "【维度测评】在我看来，我对人友好、愿意照顾他人感受。" },
+            { id: 9, type: "scale", q: "【维度测评】在我看来，我自律、做事有条理、能持续推进。" },
+            { id: 10, type: "scale", q: "【维度测评】在我看来，我容易受压力影响导致焦虑或紧张。" },
+            { id: 11, type: "scale", q: "【维度测评】在我看来，我愿意尝试新东西，想法开放，好奇心强。" },
+            { id: 12, type: "radio", q: "你觉得我的存在，更像是一团“温暖的火”，还是一个“深邃的湖”？", options: ["温暖的火 (明亮/有爆发力)", "深邃 the 湖 (沉静/有深度)"] },
             { id: 13, type: "radio", q: "当我压力大时，你观察到我更倾向于：", options: ["更强势", "更冷淡", "更急躁", "更沉默", "更亢奋", "看不出来"] },
             { id: 14, type: "radio", q: "如果我是一本还没写完的书，你觉得接下来的章节应该是：", options: ["破浪前行 (变革与成就)", "大隐于市 (沉淀与哲思)"] },
             { id: 15, type: "radio", q: "我最容易踩到的“边界”是什么？", options: ["时间安排与节奏", "情绪与面子", "个人空间与隐私", "决策权威", "不确定"] },
@@ -68,7 +82,7 @@
         const totalSteps = 21;
         const container = document.getElementById('step-container');
         
-        // 【重要】替换为你部署的 Google Apps Script 链接
+        // 【重要】替换为你的 URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwrDxxwqJ-EGQio9sfxAeIh97hxLjIo65FXRlgofR23310zjar-PLkpAuaAgGuV2Jx4UQ/exec';
 
         function renderQuestions() {
@@ -77,12 +91,12 @@
                 const div = document.createElement('div');
                 div.id = `step-${stepId}`; div.className = "step hidden fade-in";
                 let inputHTML = '';
-                if(item.type === 'text') inputHTML = `<textarea name="q${stepId}" rows="4" class="w-full bg-slate-50 rounded-2xl p-5 outline-none focus:ring-4 focus:ring-indigo-100 transition"></textarea>`;
+                if(item.type === 'text') inputHTML = `<textarea name="q${stepId}" rows="4" class="w-full bg-slate-50 border-2 border-slate-50 rounded-2xl p-5 outline-none focus:ring-4 focus:ring-indigo-100 transition"></textarea>`;
                 else if(item.type === 'score') inputHTML = `<div class="grid grid-cols-5 gap-2">` + [1,2,3,4,5,6,7,8,9,10].map(n => `<button type="button" onclick="selectValue('q${stepId}', ${n}, this)" class="choice-btn py-4 font-bold text-slate-600">${n}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
                 else if(item.type === 'scale') inputHTML = `<div class="flex flex-col gap-4"><div class="flex justify-between text-xs text-slate-400 font-bold px-1"><span>非常不同意</span><span>非常同意</span></div><div class="flex justify-between gap-1">` + [1,2,3,4,5,6,7].map(n => `<button type="button" onclick="selectValue('q${stepId}', ${n}, this, 'scale')" class="scale-btn flex-1 py-3 text-sm font-bold text-slate-500 bg-slate-50">${n}</button>`).join('') + `</div></div><input type="hidden" name="q${stepId}">`;
                 else if(item.type === 'radio' || item.type === 'checkbox') inputHTML = `<div class="flex flex-wrap gap-2">` + item.options.map(opt => `<button type="button" onclick="selectOption('q${stepId}', '${opt}', this, '${item.type}', ${item.limit || 1})" class="choice-btn px-5 py-3 text-base font-medium text-slate-600">${opt}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
 
-                div.innerHTML = `<label class="block text-xs font-bold text-indigo-400 uppercase mb-4 tracking-widest">Step ${stepId} / 20</label><h2 class="text-xl font-bold text-slate-800 mb-8 serif">${item.q}</h2>${inputHTML}<div class="flex gap-4 mt-12"><button type="button" onclick="prev(${stepId})" class="flex-1 py-4 text-slate-400 font-bold">上一步</button><button type="button" onclick="next(${stepId})" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 shadow-lg">下一步</button></div>`;
+                div.innerHTML = `<label class="block text-xs font-bold text-indigo-400 uppercase mb-4 tracking-widest">Step ${stepId} / 20</label><h2 class="text-xl font-bold text-slate-800 mb-8 serif leading-snug">${item.q}</h2>${inputHTML}<div class="flex gap-4 mt-12"><button type="button" onclick="prev(${stepId})" class="flex-1 py-4 text-slate-400 font-bold hover:text-slate-600 transition">上一步</button><button type="button" onclick="next(${stepId})" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition">下一步</button></div>`;
                 container.appendChild(div);
             });
         }
@@ -95,7 +109,7 @@
             else { e.classList.toggle('selected'); const s = Array.from(e.parentElement.querySelectorAll('.selected')).map(b => b.innerText); if(s.length > l) { e.classList.remove('selected'); return; } i.value = s.join(', '); }
         }
         function next(id) {
-            if(id === 0 && !document.getElementById('user-name').value.trim()) return;
+            if(id === 0 && !document.getElementById('user-name').value.trim()) { alert("请告知你的称呼"); return; }
             document.getElementById(`step-${id}`).classList.add('hidden');
             current++; const nextStep = document.getElementById(`step-${current}`) || document.getElementById('step-final');
             nextStep.classList.remove('hidden'); document.getElementById('progress').style.width = (current / totalSteps * 100) + '%';
@@ -106,8 +120,8 @@
             e.preventDefault(); const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerText = "数据同步中...";
             try {
                 await fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' });
-                alert('提交成功！你的真实反馈对我非常有价值。'); btn.innerText = "已完成";
-            } catch (err) { alert('提交失败：' + err.message); btn.disabled = false; }
+                alert('提交成功！你的反馈对我非常重要。'); btn.innerText = "已完成";
+            } catch (err) { alert('提交由于网络原因延迟，请稍后确认表格：' + err.message); btn.disabled = false; }
         };
     </script>
 </body>
