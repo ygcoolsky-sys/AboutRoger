@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;一份深度认知请求&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.fade-in { animation: fadeIn 0.4s ease-out forwards; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hidden { display: none; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-slate-50 flex items-center justify-center min-h-screen p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="absolute top-0 left-0 w-full h-1.5 bg-slate-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="progress" class="h-full bg-indigo-500 transition-all duration-500" style="width: 0%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;form id="survey-form"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="step-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="step fade-in" id="step-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h1 class="text-2xl font-bold text-slate-800 mb-2"&gt;嘿！我想听听你的真话&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-500 mb-8"&gt;这是一次关于我的“他择”实验。首先，怎么称呼你？&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="text" name="name" required class="w-full border-b-2 border-slate-100 focus:border-indigo-500 outline-none py-3 text-lg transition" placeholder="你的名字"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button type="button" onclick="next(1)" class="mt-10 w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold"&gt;开始填写&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="step-final" class="step hidden fade-in text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-5xl mb-6"&gt;✨&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-xl font-bold text-slate-800 mb-4"&gt;反馈已收到&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-slate-500 mb-8"&gt;感谢你陪我完成这次探索。点击下方按钮完成最后提交。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold"&gt;确认发送&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const questions = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"回想初次相识，你对我最深刻的 3 个直觉印象是什么？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"在你认识的所有人里，你觉得我身上哪种特质是最罕见、最难以取代的？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"你觉得我在谈论什么话题时，眼神里最有“光”？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"你觉得我的存在，更像是一团“温暖的火”，还是一个“深邃的湖”？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"如果我突然去创业，你会建议我做“掌舵者”还是“压舱石”？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"当我陷入低谷时，你觉得我最需要的支持方式是什么？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"你觉得我在社交场合中展示出的“距离感”通常是因为什么？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"如果我是一本还没写完的书，你觉得下章是“破浪前行”还是“大隐于市”？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"在你眼中，我更倾向于“直觉驱动”还是“逻辑至上”？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"有没有哪种才华，是你觉得我拥有但还没被大家看到的？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"如果要给我提一个能让我变得更好的“真诚差评”，你会说什么？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"在什么样的情况下，你会毫不犹豫地把一件大事交给我？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"如果必须用一个词来定义我的“精神底色”，你会选哪个词？",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"最后，有没有一句话是你想送给现在或未来的我的？"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let current = 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const container = document.getElementById('step-container');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const scriptURL = '你的APPS_SCRIPT_URL_贴在这里';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 动态生成题目</p>
+<p class="p1"><span class="Apple-converted-space">        </span>questions.forEach((q, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const stepId = i + 2;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const div = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.id = `step-${stepId}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.className = "step hidden fade-in";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;label class="block text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2"&gt;Question ${stepId}/15&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-xl font-bold text-slate-800 mb-6"&gt;${q}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;textarea name="q${stepId}" rows="4" class="w-full bg-slate-50 border-none rounded-2xl p-4 focus:ring-2 focus:ring-indigo-500 outline-none transition" placeholder="输入你的回答..."&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" onclick="next(${stepId})" class="mt-8 w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold"&gt;下一题&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>container.appendChild(div);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function next(stepId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentEl = document.getElementById(`step-${stepId}`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const input = currentEl.querySelector('input, textarea');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (input &amp;&amp; !input.value.trim()) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert("留点笔墨吧，这对我很重要。");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentEl.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>current++;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const nextEl = document.getElementById(`step-${current}`) || document.getElementById('step-final');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>nextEl.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('progress').style.width = (current / 16 * 100) + '%';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('survey-form').addEventListener('submit', e =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const btn = document.getElementById('submit-btn');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.disabled = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.innerText = "提交中...";</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>fetch(scriptURL, { method: 'POST', body: new FormData(e.target)})</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.then(res =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert('提交成功！谢谢你！');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.innerText = "已完成";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>})</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.catch(err =&gt; alert('出错啦，请截图联系我：' + err.message));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
