@@ -3,75 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roger 的个人认知调查</title>
+    <title>Roger 的认知映射图谱</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-        body { font-family: 'Inter', -apple-system, sans-serif; background: #fdfdfd; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Serif+SC:wght@700&display=swap');
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #f8fafc; color: #1e293b; }
+        .serif { font-family: 'Noto Serif SC', serif; }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none; }
-        .choice-btn { transition: all 0.2s; border: 2px solid #f3f4f6; }
-        .choice-btn.selected { border-color: #4f46e5; background: #eef2ff; color: #4f46e5; }
+        .choice-btn { transition: all 0.2s; border: 2px solid #f1f5f9; background: white; }
+        .choice-btn.selected { border-color: #6366f1; background: #eef2ff; color: #4f46e5; box-shadow: 0 0 0 1px #6366f1; }
+        .scale-btn { transition: all 0.15s; border: 1px solid #e2e8f0; }
+        .scale-btn.selected { background: #6366f1; color: white; border-color: #6366f1; }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
 
-    <div class="w-full max-w-xl bg-white rounded-[2rem] shadow-2xl p-8 md:p-12 relative overflow-hidden border border-gray-50">
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-100">
-            <div id="progress" class="h-full bg-indigo-600 transition-all duration-500" style="width: 0%"></div>
+    <div class="w-full max-w-xl bg-white rounded-[2rem] shadow-2xl p-8 md:p-12 relative overflow-hidden border border-slate-100">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-slate-50">
+            <div id="progress" class="h-full bg-indigo-500 transition-all duration-700 ease-in-out" style="width: 0%"></div>
         </div>
 
         <form id="survey-form">
             <div id="step-container">
                 <div class="step fade-in" id="step-0">
-                    <h1 class="text-3xl font-extrabold text-gray-900 mb-6 tracking-tight">嘿，我想听听你的真话</h1>
-                    <p class="text-gray-500 mb-8 leading-relaxed text-lg">
-                        这是一次关于我的“个人尽职调查”。请避开礼貌的客套，用你最真实、甚至最犀利的视角帮我照照镜子。<br><br>
-                        <span class="text-indigo-600 font-semibold">💡 提示：遇到例子题，请尽量写出具体的情境。</span>
-                    </p>
-                    <label class="block text-sm font-bold text-gray-400 mb-2 uppercase">首先，怎么称呼你？</label>
-                    <input type="text" name="name" required class="w-full border-b-2 border-gray-100 focus:border-indigo-600 outline-none py-3 text-xl transition bg-transparent" placeholder="昵称或姓名">
-                    <button type="button" onclick="next(0)" class="mt-10 w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-100">开始实验</button>
+                    <h1 class="text-3xl font-extrabold text-slate-900 mb-6 tracking-tight serif italic">Roger's Soul & Logic Map</h1>
+                    <div class="space-y-4 text-slate-500 mb-10 leading-relaxed text-lg">
+                        <p>很高兴你能抽出时间陪我进行这次“他择”实验。</p>
+                        <p>这 20 个问题包含了我对**精神原型**的感性好奇，以及对**行为边界**的理性审计。请给出你最直觉、最真实的反馈。</p>
+                        <p class="bg-slate-50 border-l-4 border-indigo-400 p-4 text-indigo-800 rounded-r-xl text-base">
+                            💡 提示：遇到填空题，请分享你脑海中出现的第一个画面。
+                        </p>
+                    </div>
+                    <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">首先，怎么称呼你？</label>
+                    <input type="text" name="name" id="user-name" required class="w-full border-b-2 border-slate-100 focus:border-indigo-600 outline-none py-3 text-xl transition bg-transparent" placeholder="昵称或姓名">
+                    <button type="button" onclick="next(0)" class="mt-12 w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition">开启实验</button>
                 </div>
             </div>
 
-            <div id="step-final" class="step hidden fade-in text-center">
-                <div class="text-6xl mb-6">🥂</div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">全部填完啦！</h2>
-                <p class="text-gray-500 mb-10">你的反馈对我非常重要，感谢这份坦诚。点击下方按钮，将数据传送给我。</p>
-                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg">确认提交</button>
+            <div id="step-final" class="step hidden fade-in text-center py-10">
+                <div class="text-6xl mb-6">👁️</div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4 serif">探索完成</h2>
+                <p class="text-slate-500 mb-10 text-lg">感谢你帮我补全了自我地图的盲区。数据将安全送达我的私密表格。</p>
+                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-black transition shadow-2xl tracking-widest">确认发送</button>
             </div>
         </form>
     </div>
 
     <script>
-        // 定义题目类型：text (长文本), score (1-10), radio (单选), checkbox (多选)
         const questions = [
             { id: 1, type: "radio", q: "你和我认识多久了？", options: ["<1年", "1–3年", "3–5年", "5年以上"] },
-            { id: 2, type: "score", q: "你觉得我“说到做到、能交付”的程度是多少？" },
-            { id: 3, type: "score", q: "你觉得我“看问题抓重点、不被表象带跑”的程度是多少？" },
-            { id: 4, type: "score", q: "你觉得我“跟我合作更轻松/更有效”的程度是多少？" },
-            { id: 5, type: "radio", q: "你更常在什么场景里接触我？", options: ["工作协作", "商务合作", "私下朋友", "学习交流", "线上为主", "其他"] },
-            { id: 6, type: "radio", q: "形容我在别人眼里最稳定的气质：", options: ["冷静", "进取", "强势", "可靠", "有趣", "难以捉摸", "温和", "其他"] },
-            { id: 7, type: "checkbox", q: "你认为我最突出的优势是什么？(最多3项)", options: ["判断力", "学习速度", "执行推进", "表达说服", "资源连接", "抗压能力", "审美品味", "同理心", "自律", "创造力"], limit: 3 },
-            { id: 8, type: "checkbox", q: "你认为我最明显的短板/风险点是什么？(最多2项)", options: ["容易急", "太强势", "情绪表达少", "信息密度过高", "分心太多", "控制欲", "不够耐心", "容易怀疑他人能力", "过度理性显得冷"], limit: 2 },
-            { id: 9, type: "text", q: "印象最深的一次，我做对了什么？(情境→行动→结果)" },
-            { id: 10, type: "text", q: "印象最深的一次，我做错了什么/让你感到不适的是什么？" },
-            { id: 11, type: "text", q: "如果让我“变得更难相处”，最典型的一种表现会是什么？" },
-            { id: 12, type: "text", q: "如果让我“更值得长期合作”，一个关键改变是什么？" },
-            { id: 13, type: "radio", q: "当我和你观点不一致时，我更常见的表现是：", options: ["压过去", "讲逻辑讲到你累", "先听再反击", "暂时冷处理", "让步但心里不服", "说不准"] },
-            { id: 14, type: "radio", q: "当我压力很大时，你观察到我更可能：", options: ["更强势", "更冷淡", "更急躁", "更沉默", "更亢奋/激进", "看不出来"] },
-            { id: 15, type: "score", q: "你愿意把重要的事交给我一起做的程度是多少？" },
-            { id: 16, type: "text", q: "我做过的哪件“小事”，让你觉得我值得信任？" },
-            { id: 17, type: "text", q: "我最容易忽略的一条“边界”是什么？(如时间、情绪、尊重感等)" },
-            { id: 18, type: "text", q: "如果你只能给我一个“必须坚持的原则”，你会给什么？" },
-            { id: 19, type: "text", q: "一句话建议：我应该继续做什么？" },
-            { id: 20, type: "text", q: "一句话建议：我应该少做/停止做什么？" }
+            { id: 2, type: "radio", q: "你更常在什么场景里接触我？", options: ["工作协作", "商务合作", "私下朋友", "学习交流", "线上为主"] },
+            { id: 3, type: "text", q: "回想初见，你对我最深刻的 3 个直觉印象是什么？" },
+            { id: 4, type: "checkbox", q: "选出最像我的“光面”词 (最多4项)：", options: ["可靠", "干脆", "聪明", "冷静", "有主见", "行动快", "目标感强", "讲原则", "讲效率", "讲逻辑", "好奇", "学习快", "进取", "敢担当", "坦诚", "讲信用", "会组织", "会推动", "会连接资源"], limit: 4 },
+            { id: 5, type: "checkbox", q: "选出最像我的“暗面”风险 (最多3项)：", options: ["压迫感", "强势", "距离感", "情绪不外露", "节奏太快", "信息密度高", "耐心不足", "容易急", "容易打断", "要求高", "挑剔", "固执", "容易质疑", "想法多", "注意力分散", "谨慎"], limit: 3 },
+            { id: 6, type: "text", q: "如果你要自己补一个词形容我，会是什么？(最多10字)", placeholder: "补充你的观察..." },
+            { id: 7, type: "scale", q: "【Big5】在我看来，我是外向、善于社交、容易跟人熟起来的。" },
+            { id: 8, type: "scale", q: "【Big5】在我看来，我对人友好、愿意照顾他人感受。" },
+            { id: 9, type: "scale", q: "【Big5】在我看来，我自律、做事有条理、能持续推进。" },
+            { id: 10, type: "scale", q: "【Big5】在我看来，我容易受压力影响导致焦虑或紧张。" },
+            { id: 11, type: "scale", q: "【Big5】在我看来，我愿意尝试新东西，想法开放，好奇心强。" },
+            { id: 12, type: "radio", q: "你觉得我的存在，更像是一团“温暖的火”，还是一个“深邃的湖”？", options: ["温暖的火 (明亮/有爆发力/聚集能量)", "深邃的湖 (沉静/有深度/承载万物)"] },
+            { id: 13, type: "radio", q: "当我压力大时，你观察到我更倾向于：", options: ["更强势 (主导一切)", "更冷淡 (情感封闭)", "更急躁 (追求速度)", "更沉默 (自我消化)", "更亢奋 (激进破局)", "看不出来"] },
+            { id: 14, type: "radio", q: "如果我是一本还没写完的书，你觉得接下来的章节应该是：", options: ["破浪前行 (剧烈的变革与成就)", "大隐于市 (深度的沉淀与哲思)"] },
+            { id: 15, type: "radio", q: "我最容易踩到的“边界”是什么？", options: ["时间安排与节奏 (推太猛)", "情绪与面子", "个人空间与隐私", "决策权威 (太固执)", "不确定"] },
+            { id: 16, type: "score", q: "你愿意把重要的事交给我一起做的程度是几分？(1–10)" },
+            { id: 17, type: "text", q: "【行动建议】如果我只改一个动作就能让你更舒服，那就是？", placeholder: "如果我改掉..." },
+            { id: 18, type: "text", q: "你认为我身上哪种特质是最罕见、最难以取代的？" },
+            { id: 19, type: "text", q: "给我一个“最能代表我”的小片段 (发生什么→我怎么做→你的感受)。" },
+            { id: 20, type: "text", q: "有没有一句话是你想送给现在或未来的我的？" }
         ];
 
         let current = 0;
+        const totalSteps = 21;
         const container = document.getElementById('step-container');
+        
+        // 【重要】替换为你的链接
         const scriptURL = 'https://script.google.com/macros/s/AKfycbymmhUutLhzsANEXGMFcCuIIgigPg9ameIgIm73bzo/dev';
 
         function renderQuestions() {
@@ -83,20 +91,25 @@
                 
                 let inputHTML = '';
                 if(item.type === 'text') {
-                    inputHTML = `<textarea name="q${stepId}" rows="4" class="w-full bg-gray-50 rounded-2xl p-4 outline-none focus:ring-2 focus:ring-indigo-500 transition" placeholder="请详细描述..."></textarea>`;
+                    inputHTML = `<textarea name="q${stepId}" rows="4" class="w-full bg-slate-50 border-2 border-slate-50 rounded-2xl p-5 outline-none focus:ring-4 focus:ring-indigo-100 transition" placeholder="${item.placeholder || '写下你的真实想法...'}"></textarea>`;
                 } else if(item.type === 'score') {
-                    inputHTML = `<div class="grid grid-cols-5 gap-2">` + [1,2,3,4,5,6,7,8,9,10].map(n => `<button type="button" onclick="selectValue('q${stepId}', ${n}, this)" class="choice-btn py-3 rounded-xl font-bold text-gray-600">${n}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
+                    inputHTML = `<div class="grid grid-cols-5 gap-2">` + [1,2,3,4,5,6,7,8,9,10].map(n => `<button type="button" onclick="selectValue('q${stepId}', ${n}, this)" class="choice-btn py-4 rounded-xl font-bold text-slate-600">${n}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
+                } else if(item.type === 'scale') {
+                    inputHTML = `<div class="flex flex-col gap-4">
+                        <div class="flex justify-between text-xs text-slate-400 font-bold px-1"><span>非常不同意</span><span>非常同意</span></div>
+                        <div class="flex justify-between gap-1">` + [1,2,3,4,5,6,7].map(n => `<button type="button" onclick="selectValue('q${stepId}', ${n}, this, 'scale')" class="scale-btn flex-1 py-3 rounded-lg text-sm font-bold text-slate-500 bg-slate-50">${n}</button>`).join('') + `</div>
+                    </div><input type="hidden" name="q${stepId}">`;
                 } else if(item.type === 'radio' || item.type === 'checkbox') {
-                    inputHTML = `<div class="flex flex-wrap gap-2">` + item.options.map(opt => `<button type="button" onclick="selectOption('q${stepId}', '${opt}', this, '${item.type}', ${item.limit || 1})" class="choice-btn px-4 py-2 rounded-full text-sm font-medium text-gray-600">${opt}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
+                    inputHTML = `<div class="flex flex-wrap gap-2">` + item.options.map(opt => `<button type="button" onclick="selectOption('q${stepId}', '${opt}', this, '${item.type}', ${item.limit || 1})" class="choice-btn px-5 py-3 rounded-2xl text-base font-medium text-slate-600">${opt}</button>`).join('') + `</div><input type="hidden" name="q${stepId}">`;
                 }
 
                 div.innerHTML = `
-                    <label class="block text-xs font-bold text-indigo-400 uppercase mb-2">Quest ${stepId} / 20</label>
-                    <h2 class="text-xl font-bold text-gray-800 mb-6">${item.q}</h2>
+                    <label class="block text-xs font-bold text-indigo-400 uppercase tracking-widest mb-4">Step ${stepId} / 20</label>
+                    <h2 class="text-xl font-bold text-slate-800 mb-8 leading-snug serif">${item.q}</h2>
                     ${inputHTML}
-                    <div class="flex gap-4 mt-10">
-                        <button type="button" onclick="prev(${stepId})" class="flex-1 py-4 text-gray-400 font-bold">上一步</button>
-                        <button type="button" onclick="next(${stepId})" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-bold">下一题</button>
+                    <div class="flex gap-4 mt-12">
+                        <button type="button" onclick="prev(${stepId})" class="flex-1 py-4 text-slate-400 font-bold hover:text-slate-600 transition">上一步</button>
+                        <button type="button" onclick="next(${stepId})" class="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-100">下一步</button>
                     </div>
                 `;
                 container.appendChild(div);
@@ -105,9 +118,8 @@
 
         renderQuestions();
 
-        function selectValue(name, val, el) {
-            const parent = el.parentElement;
-            parent.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+        function selectValue(name, val, el, type) {
+            el.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             document.querySelector(`input[name="${name}"]`).value = val;
         }
@@ -131,35 +143,32 @@
         }
 
         function next(id) {
-            const currentStep = document.getElementById(`step-${id}`);
-            // 简单校验
-            if(id === 0 && !document.querySelector('input[name="name"]').value) { alert("怎么称呼你？"); return; }
-            
-            currentStep.classList.add('hidden');
+            const currentEl = document.getElementById(`step-${id}`);
+            if(id === 0 && !document.getElementById('user-name').value.trim()) { alert("请告知你的称呼"); return; }
+            currentEl.classList.add('hidden');
             current++;
             const nextStep = document.getElementById(`step-${current}`) || document.getElementById('step-final');
             nextStep.classList.remove('hidden');
-            document.getElementById('progress').style.width = (current / 21 * 100) + '%';
+            document.getElementById('progress').style.width = (current / totalSteps * 100) + '%';
         }
 
         function prev(id) {
             document.getElementById(`step-${id}`).classList.add('hidden');
             current--;
             document.getElementById(`step-${current}`).classList.remove('hidden');
-            document.getElementById('progress').style.width = (current / 21 * 100) + '%';
+            document.getElementById('progress').style.width = (current / totalSteps * 100) + '%';
         }
 
         document.getElementById('survey-form').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
-            btn.disabled = true; btn.innerText = "正在传送数据...";
-            
+            btn.disabled = true; btn.innerText = "数据同步中...";
             try {
-                await fetch(scriptURL, { method: 'POST', body: new FormData(e.target) });
-                alert('提交成功！你的反馈对我非常珍贵。');
+                await fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' });
+                alert('提交成功！你的真实反馈对我非常有价值。');
                 btn.innerText = "已完成";
             } catch (err) {
-                alert('提交似乎有点问题，可以截图联系我：' + err.message);
+                alert('网络连接略有延迟，请稍后确认：' + err.message);
                 btn.disabled = false;
             }
         };
